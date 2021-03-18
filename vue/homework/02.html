@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <table border="1" style="text-align: center;">
+            <tr>
+                <td></td>
+                <td>id</td>
+                <td>name</td>
+                <td>price</td>
+                <td>buyCount</td>
+                <td>operate</td>
+            </tr>
+            <tr v-for="(book, index) in books">
+                <td>{{index}}</td>
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.price.toFixed(2) | showPrice}}</td>
+                <td>
+                    <button @click="decrement(book, 'count')" :disabled="book.count <= 0">-</button>
+                    {{book.count}}
+                    <button @click="increment(book, 'count')">+</button>
+                </td>
+                <td><button @click="removeElement(index)">移除</button></td>
+            </tr>
+        </table>
+        total:{{totalPrice | showPrice}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                books: [
+                    {id: 110, name: 'unix编程艺术', price: 119.00, count: 1},
+                    {id: 111, name: '代码大全', price: 150.00, count: 1},
+                    {id: 112, name: '深入理解计算机系统', price: 98.00, count: 1},
+                    {id: 113, name: '现代操作系统', price: 87.00, count: 1}
+                ]
+            },
+            methods: {
+                increment(object, count){
+                    object[count]++;
+                },
+                decrement(object, count){
+                    object[count]--;
+                },
+                removeElement(index){
+                    this.books.splice(index, 1);
+                }
+            },
+            computed: {
+                totalPrice(){
+                    let total = 0;
+                    for (const iterator of this.books) {
+                        total += iterator.price * iterator.count;
+                    }
+                    return total;
+                }
+            },
+            filters: {
+                showPrice(price){
+                    return '￥' + price;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

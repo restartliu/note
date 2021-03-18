@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- v-if是移除，v-show是隐藏(display: none/block) -->
+        <!-- 显示与隐藏操作频繁时使用v-show，只有一次或者次数很少时使用v-if -->
+        <h2 v-show="isShow">{{message}}</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: "hello",
+                isShow: true
+            }
+        })
+    </script>
+</body>
+</html>

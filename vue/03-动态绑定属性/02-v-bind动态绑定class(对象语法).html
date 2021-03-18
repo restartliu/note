@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <h2 :class="active">hello</h2> -->
+        <!-- <h2 :class="{类名: 布尔值}">hello2</h2> -->
+        <!-- 对象语法 -->
+        <h2 :class="{active: isActive, line: isLine, fuck: true}" class="title">{{message}}</h2>
+        <h2 :class="getClasses()" class="title">{{message}}</h2>
+        <button @click="isActive = !isActive">changeColor</button>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: document.querySelector("#app"),
+            data: {
+                message: "test",
+                isActive: true,
+                isLine: true
+            },
+            methods: {
+                getClasses: function () {
+                    return {active: this.isActive, line: this.isLine, fuck: true}
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- 直接拼接：语法过于繁琐 -->
+        <h2>{{firstName + ' ' + lastName}}</h2>
+        <!-- 定义methods：性能比计算属性差 -->
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <!-- 定义计算属性：最优解 -->
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                firstName: 'Kobe',
+                lastName: 'Bryant'
+            },
+            methods: {
+                getFullName: function(){
+                    console.log("getFullName");
+                    return this.firstName + ' ' + this.lastName;
+                }
+            },
+            computed: {
+                fullName: function(){
+                    console.log("fullName");
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

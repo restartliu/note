@@ -1,0 +1,37 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <label for="agree">
+        <input type="checkbox" id="agree" v-model="isAgree" />同意协议
+      </label>
+      {{isAgree}}
+      <button :disabled="!isAgree">next</button>
+      <br /><br /><br /><br />
+
+      <input type="checkbox" id="" value="篮球" v-model="hobbies" />篮球
+      <input type="checkbox" id="" value="乒乓球" v-model="hobbies" />乒乓球
+      <input type="checkbox" id="" value="羽毛球" v-model="hobbies" />羽毛球
+      <input type="checkbox" id="" value="足球" v-model="hobbies" />足球
+      <br />
+      {{hobbies}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+          isAgree: false,
+          hobbies: [],
+        },
+      });
+    </script>
+  </body>
+</html>

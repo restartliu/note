@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <h2>{{totlePrice}}</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                books: [
+                    {id: 110, name: 'unix编程艺术', price: 119},
+                    {id: 111, name: '代码大全', price: 150},
+                    {id: 112, name: '深入理解计算机系统', price: 98},
+                    {id: 113, name: '现代操作系统', price: 87}
+                ]
+            },
+            // 计算属性
+            // 计算属性会进行缓存，在多次使用时，计算属性只会调用一次
+            computed: {
+                totlePrice: function(){
+                    let result = 0;
+                    for (let book of this.books) {
+                        result += book.price;
+                    }
+                    return result;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

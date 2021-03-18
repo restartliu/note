@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 在vue解析之前，div中有一个属性v-cloak，解析之后即消失 -->
+    <div id="app">
+        <img v-bind:src="imgUrl" alt="test">
+        <a :href="link">test</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: document.querySelector("#app"),
+            data: {
+                message: "hello",
+                imgUrl: "https://tse3-mm.cn.bing.net/th/id/OIP.3kTtrsVaxbNGyPmj1S4f8QHaFj?pid=ImgDet&rs=1",
+                link: "http://www.baidu.com"
+            }
+        })
+    </script>
+</body>
+</html>

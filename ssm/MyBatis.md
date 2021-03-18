@@ -22,7 +22,7 @@
 >
 > select : 映射查询语句
 
-### select
+### select元素
 
 #### 语法描述
 
@@ -83,7 +83,7 @@ ps.setInt(1, id);
 * **resultOrdered**：这个设置仅针对嵌套结果 select 语句：如果为 true，将会假设包含了嵌套结果集或是分组，当返回一个主结果行时，就不会产生对前面结果集的引用。 这就使得在获取嵌套结果集的时候不至于内存不够用。默认值：`false`
 * **resultSets**：这个设置仅适用于多结果集的情况。它将列出语句执行后返回的结果集并赋予每个结果集一个名称，多个名称之间以逗号分隔
 
-### insert &update &delete
+### insert &update &delete元素
 
 #### 属性配置
 
@@ -150,6 +150,85 @@ example：
   delete from Author where id = #{id}
 </delete>
 ```
+
+#### 自动生成主键
+
+* 如果你的数据库支持自动生成主键的字段（比如 MySQL 和 SQL Server），那么你可以设置 useGeneratedKeys=”true”，然后再把 keyProperty 设置为目标属性就 OK 了
+
+```xml
+<insert id="insertAuthor" useGeneratedKeys="true" keyProperty="id">
+    insert into Author (username,password,email,bio)
+    values (#{username},#{password},#{email},#{bio})
+</insert>
+```
+
+* 如果你的数据库还支持多行插入, 你也可以传入一个 `Author` 数组或集合，并返回自动生成的主键
+
+```xml
+<insert id="insertAuthor" useGeneratedKeys="true" keyProperty="id">
+    insert into Author (username, password, email, bio) values
+    <foreach item="item" collection="list" separator=",">
+        (#{item.username}, #{item.password}, #{item.email}, #{item.bio})
+    </foreach>
+</insert>
+```
+
+* 对于不支持自动生成主键列的数据库和可能不支持自动生成主键的 JDBC 驱动，MyBatis 有另外一种方法来生成主键，它可以生成一个随机 ID（不建议使用）
+
+```xml
+<insert id="insertAuthor">
+    <selectKey keyProperty="id" resultType="int" order="BEFORE">
+        select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
+    </selectKey>
+    insert into Author
+    (id, username, password, email,bio, favourite_section)
+    values
+    (#{id}, #{username}, #{password}, #{email}, #{bio}, #{favouriteSection,jdbcType=VARCHAR})
+</insert>
+```
+
+在上面的示例中，首先会运行 selectKey 元素中的语句，并设置 Author 的 id，然后才会调用插入语句。这样就实现了数据库自动生成主键类似的行为，同时保持了 Java 代码的简洁
+
+#### selectKey元素
+
+```xml
+<selectKey
+           keyProperty="id"
+           resultType="int"
+           order="BEFORE"
+           statementType="PREPARED">
+```
+
+* **keyProperty**：`selectKey` 语句结果应该被设置到的目标属性。如果生成列不止一个，可以用逗号分隔多个属性名称
+* **keyColumn**：返回结果集中生成列属性的列名。如果生成列不止一个，可以用逗号分隔多个属性名称
+* **resultType**：结果的类型。通常Mybatis可以推断出来，但为了更加准确，写上也不会有什么问题。MyBatis允许将任何简单类型用作主键的类型，包括字符串。如果生成列不止一个，则可以使用包含期望属性的Object或Map
+* **order**：可以设置为 `BEFORE`或`AFTER`。如果设置为`BEFORE`，那么它首先会生成主键，设置`keyProperty`再执行插入语句。如果设置为`AFTER`，那么先执行插入语句，然后是`selectKey`中的语句 - 这和Oracle数据库的行为相似，在插入语句内部可能有嵌入索引调用
+* **statementType**：和前面一样，Mybatis支持`STATEMENT`，`PREPARED`，`CALLABLE`类型的映射语句，分别代表`Statement`，`PreparedStatement`，`CallableStatement`类型
+
+### sql元素
+
+这个属性可以用来定义可重用的SQL代码片段，以便在其他语句中使用。参数可以静态的（在加载的时候）确定下来，并且可以在不同的include元素中定义不同的参数值
+
+```xml
+<sql id="userColumns">
+    ${alias}.id, ${alias}.username, ${alias}.password
+</sql>
+```
+
+### 关于mybatis的#{}和${}的区别和底层实现
+* ${} （Statement实现）:
+  1、只是简单的替换，传递的参数会被当成sql语句中的一部分（不能防止sql注入）
+  2、建议like和order by后使用
+
+* {} （PreprareStatement实现）:
+
+  1、解析为一个 '?'占位符号，会对自动传入的数据加一个双引号（可以防止sql注入）
+
+预编译的机制：预编译是提前对SQL编译之前进行预编译，而其后注入的参数将不会再进行编译。因为SQL注入是发生在编译的过程中，因为恶意注入了某些特殊字符，最后被编译成了恶意的执行操作。所以预编译机制则可以很好的防止SQL注入
+
+
+
+
 
 ## 动态SQL
 

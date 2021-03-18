@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <ul>
+            <li v-for="(item, index) in movies" :class="{active: index===currentActive}" @click="changeColor(index)">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: document.querySelector("#app"),
+            data: {
+                movies: ["test1", "rest2", "fucasdf", "asdkf"],
+                currentActive: 0
+            },
+            methods: {
+                changeColor(index){
+                    if (index === this.currentActive){
+                        this.currentActive = this.movies.length
+                    }else{
+                        this.currentActive = index;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

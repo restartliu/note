@@ -1,0 +1,37 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      const nums = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+      let newNums = nums.filter((n) => {
+        return n > 50;
+      });
+      console.log(newNums);
+      let new2Nums = newNums.map((n) => {
+				return n / 2;
+			});
+      console.log(new2Nums);
+      let totalNum = new2Nums.reduce((preValue, current) => {
+        return current + preValue;
+      }, 0);
+      console.log(totalNum);
+      total = nums
+        .filter((n) => {
+          return n > 50;
+        })
+        .map((n) => {
+          return n / 2;
+        })
+        .reduce((pre, current) => {
+          return pre + current;
+        }, 0);
+      console.log(total);
+    </script>
+  </body>
+</html>

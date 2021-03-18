@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- 对象语法 -->
+            <!-- <h2 :style="(属性名key: 属性值value)"></h2> -->
+            <li v-for="item,index in movies" :style="{color: 'red'}">{{item}}</li>
+            <li v-for="item,index in movies" :style="{color: color}">{{item}}</li>
+            <li v-for="item,index in movies" :style="{fontSize: size+10+'px'}">{{item}}</li>
+            <li v-for="item,index in movies" :style="getColor()">{{item}}</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: document.querySelector("#app"),
+            data: {
+                movies: ['海王', '海尔兄弟', '火影忍者', '进击的巨人'],
+                color: "red",
+                size: 50
+            },
+            methods: {
+                getColor: function(){
+                    return {color: this.color};
+                }
+            }
+        })
+    </script>
+</body>
+</html>

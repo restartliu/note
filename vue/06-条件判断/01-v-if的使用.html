@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <h2 v-if="isShow">{{message}}</h2>
+        <h2 v-else>isShow is false</h2>
+
+        <br>
+
+        <h2 v-if="score >= 90">perfect</h2>
+        <h2 v-else-if="score >= 80">good</h2>
+        <h2 v-else-if="score >= 70">fine</h2>
+        <h2 v-else-if="score >= 60">so so</h2>
+        <h2 v-else>bad</h2>
+
+        <br>
+
+        <h2>{{result}}</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: "hello",
+                isShow: true,
+                score: 80
+            },
+            computed: {
+                result(){
+                    let showMessage = '';
+                    if (this.score >= 90){
+                        showMessage = "perfect";
+                    }else if(this.score >= 80){
+                        showMessage = "good";
+                    }else if(this.score >= 70){
+                        showMessage = "fine";
+                    }else if(this.score >= 60){
+                        showMessage = "so so";
+                    }else{
+                        showMessage = "bad";
+                    }
+                    return showMessage;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <button @click="btnClick">addItem</button>
+        <button @click="btnClickNotResponsive">notResponsive</button>
+        <ul>
+            <li v-for="item in letters" :key="item">{{item}}</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                letters: ['I', 'B', 'A', 'H', 'G']
+            },
+            methods: {
+                btnClick(){
+                    // this.letters.push('aaa');
+                    // this.letters.push('aaa', 'bbb', 'ccc');
+                    // this.letters.pop();
+                    // 在数组最前面添加元素
+                    // this.letters.unshift("F");
+                    // this.letters.splice(2, 2)
+                    // this.letters.splice(2, 0, "Y", "I", "O")
+                    // this.letters.splice(2, 3, "I", "O")
+                    // this.letters.sort()
+                    // this.letters.reverse()
+                    Vue.set(this.letters, 0, "O")
+                },
+                btnClickNotResponsive(){
+                    this.letters[2] = "F";
+                }
+            }
+        })
+    </script>
+</body>
+</html>

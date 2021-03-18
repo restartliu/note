@@ -1,0 +1,43 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <select name="abc" v-model="fruit">
+        <option value="apple">apple</option>
+        <option value="banana">banana</option>
+        <option value="pieApple">pieApple</option>
+        <option value="orange">orange</option>
+        <option value="peach">peach</option>
+      </select>
+      {{fruit}}
+
+      <br /><br /><br />
+
+      <select name="abc" v-model="fruits" multiple>
+        <option value="apple">apple</option>
+        <option value="banana">banana</option>
+        <option value="pieApple">pieApple</option>
+        <option value="orange">orange</option>
+        <option value="peach">peach</option>
+      </select>
+      {{fruits}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+          fruit: "banana",
+          fruits: [],
+        },
+      });
+    </script>
+  </body>
+</html>

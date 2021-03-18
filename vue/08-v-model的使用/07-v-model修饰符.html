@@ -1,0 +1,43 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 修饰符lazy，使用此修饰符修饰的v-model不会实时将输入数据和变量进行绑定，只有敲击回车或者失去焦点时才会进行绑定 -->
+      <input type="text" v-model.lazy="message1" />
+      {{message1}}
+
+      <br /><br /><br />
+
+      <!-- 修饰符number，使用此修饰符会将输入的字符转变为数字类型 -->
+      <input type="number" v-model="message2" />
+      {{typeof message2}}
+      <br />
+      <input type="number" v-model.number="message3" />
+      {{typeof message3}}
+
+      <br /><br /><br />
+
+      <!-- 修饰符trim，自动去除字符串两边的空格，具体效果需要在控制台查看 -->
+      <input type="text" v-model.trim="message4" />
+      {{message4}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message1: "",
+          message2: "",
+          message3: "",
+          message4: "",
+        },
+      });
+    </script>
+  </body>
+</html>

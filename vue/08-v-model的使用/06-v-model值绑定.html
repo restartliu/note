@@ -7,7 +7,16 @@
   </head>
   <body>
     <div id="app">
-      <h2>{{message}}</h2>
+      <label v-for="item in originHobbies" :for="'test'+item">
+        <input
+          type="checkbox"
+          :value="item"
+          v-model="hobbies"
+          :id="'test'+item"
+        />{{item}}
+      </label>
+      <br /><br /><br />
+      {{hobbies}}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -15,7 +24,14 @@
       const app = new Vue({
         el: "#app",
         data: {
-          message: "hello",
+          originHobbies: [
+            "football",
+            "basketball",
+            "tennis",
+            "tableTennisBall",
+            "badminton",
+          ],
+          hobbies: [],
         },
       });
     </script>

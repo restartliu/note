@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 相同的模板不共享数据，如果不使用函数，它门的值会被共享（会报错） -->
+      <test></test>
+      <test></test>
+      <test></test>
+    </div>
+
+    <template id="test">
+      <div>
+        <h2>count: {{counter}}</h2>
+        <button @click="decrement">-</button>
+        <button @click="increment">+</button>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      Vue.component("test", {
+        template: "#test",
+        data() {
+          return {
+            counter: 0,
+          };
+        },
+        methods: {
+          increment() {
+            this.counter++;
+          },
+          decrement() {
+            this.counter--;
+          },
+        },
+      });
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+        },
+      });
+    </script>
+  </body>
+</html>

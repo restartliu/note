@@ -1,0 +1,61 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 不加括号的情况下，系统默认把子组件参数传递过去 -->
+      <!-- 使用v-on监听子组件传递过来的事件 -->
+      <test @itemclick="testClick"></test>
+    </div>
+
+    <template id="test">
+      <div>
+        <button v-for="item in categories" @click="btnClick(item)">
+          {{item.name}}
+        </button>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const test = {
+        template: "#test",
+        data() {
+          return {
+            categories: [
+              { id: "aa", name: "热门推荐" },
+              { id: "bb", name: "手机数码" },
+              { id: "bb", name: "家具家电" },
+              { id: "bb", name: "电脑办公" },
+            ],
+          };
+        },
+        methods: {
+          btnClick(item) {
+            // 通过emit触发事件，进行事件传递，由父组件进行监听传递过去的事件名
+            this.$emit("itemclick", item);
+          },
+        },
+      };
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+        },
+        methods: {
+          // 在通过链接引入vue的情况下尽量避免使用驼峰命名法
+          testClick(item) {
+            console.log(item);
+          },
+        },
+        components: {
+          test,
+        },
+      });
+    </script>
+  </body>
+</html>

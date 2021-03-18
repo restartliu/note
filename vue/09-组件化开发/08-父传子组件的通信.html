@@ -1,0 +1,73 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <test :cmovies="movies" :cmessage="message"></test>
+    </div>
+
+    <template id="test">
+      <div>
+        <h1>{{cmessage}}</h1>
+        <h2 v-for="item in cmovies">{{item}}</h2>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const test = {
+        template: "#test",
+        // 这是传递数据的其中一种写法
+        // props: ["cmovies", "cmessage"],
+        // 对象写法可以规定传递过来的数据的类型
+        // 目前支持String、Number、Boolean、Array、Object、Date、Function、Symbol
+        // 当我们有自定义构造函数时，验证也支持自定义类型
+        props: {
+          // 简单形式规定类型
+          // cmovies: Array,
+          // cmessage: [String, Number]
+          cmessage: {
+            type: String,
+            // 提供默认值
+            default: "asdfljksdgkj",
+            // 限制属性为必传属性
+            required: true,
+          },
+          cmovies: {
+            type: Array,
+            // 这种写法在vue2.5.17以下不会出错，以上就会出问题
+            // default: ["a", "b", "c", "d"],
+            // 类型是对象或者数组时，默认值必须是一个函数
+            default() {
+              return ["a", "b", "c", "d"];
+            },
+            // 可以自己写验证方法
+            validator() {
+              // 这个值必须匹配下列字符串中的一个
+              return ["success", "warning", "danger"].indexOf(value) !== -1;
+            },
+          },
+        },
+        data() {
+          return {};
+        },
+        methods: {},
+      };
+
+      const app = new Vue({
+        el: "#app",
+        data: {
+          movies: ["asdf", "asdferwg", "rtyhbfg", "trhu"],
+          message: "fuck",
+        },
+        components: {
+          test,
+        },
+      });
+    </script>
+  </body>
+</html>

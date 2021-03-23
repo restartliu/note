@@ -1,0 +1,48 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 使用父组件的isShow变量的作用域 -->
+      <cpn v-show="isShow">
+        <p slot="test1" v-show="isShow">test1</p>
+        <button slot="test2">test2</button>
+      </cpn>
+    </div>
+
+    <template id="cpn">
+      <div>
+        <!-- 使用子组件的isShow变量的作用域 -->
+        <h2 v-show="isShow">I'm sub component</h2>
+        <slot name="test1"></slot>
+        <slot name="test2"></slot>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      // 总结：父组件模板的所有东西都会在父级作用域内编译，子组件模板的所有东西都会在子级作用域内编译
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+          isShow: true,
+        },
+        components: {
+          cpn: {
+            template: "#cpn",
+            data() {
+              return {
+                isShow: false,
+              };
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -37,7 +37,7 @@
         methods: {
           btnClick(item) {
             // 通过emit触发事件，进行事件传递，由父组件进行监听传递过去的事件名
-            this.$emit("itemclick", item);
+            this.$emit("itemclick", item, "hello world");
           },
         },
       };
@@ -48,8 +48,8 @@
         },
         methods: {
           // 在通过链接引入vue的情况下尽量避免使用驼峰命名法
-          testClick(item) {
-            console.log(item);
+          testClick(item, hello) {
+            console.log(item, hello);
           },
         },
         components: {

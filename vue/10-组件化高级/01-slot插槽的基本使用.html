@@ -1,0 +1,47 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <cpn>
+        <button>fuck</button>
+        <!-- 插槽可以容纳所有插入元素 -->
+        <div>div element</div>
+        <i>i element</i>
+      </cpn>
+      <cpn><p>abdf</p></cpn>
+      <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+      <div>
+        <h2>I'm component</h2>
+        <p>I'm component, hahaha</p>
+        <!-- 添加插槽 -->
+        <slot>
+          <!-- 添加默认值 -->
+          <button>test</button>
+        </slot>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+        },
+        components: {
+          cpn: {
+            template: "#cpn",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <cpn ref="test"></cpn>
+      <cpn ref="fuck"></cpn>
+      <cpn></cpn>
+      <button @click="btnClick1">children</button>
+      <button @click="btnClick2">refs</button>
+    </div>
+
+    <template id="cpn">
+      <div>I'm children component</div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "hello",
+        },
+        methods: {
+          btnClick1() {
+            // children可以获取所有子组件，但不会有标记，只能用下标访问
+            console.log(this.$children);
+            this.$children[0].showMessage();
+            console.log(this.$children[0].name);
+          },
+          btnClick2() {
+            // refs可以获取所有使用ref属性修饰的子组件，可以使用给ref赋的值来获取指定子组件的属性
+            console.log(this.$refs.fuck.name);
+          },
+        },
+        components: {
+          cpn: {
+            template: "#cpn",
+            data() {
+              return {
+                name: "I am sub component's data",
+              };
+            },
+            methods: {
+              showMessage() {
+                console.log("showMessage!!!");
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

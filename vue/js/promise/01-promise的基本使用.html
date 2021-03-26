@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.使用setTimeout
+      //   setTimeout(() => {
+      //     console.log("hello world");
+      //   }, 5000);
+
+      // 2.使用promise
+      // 参数 ==> function(resolve, reject)
+      // resolve和reject本身又是函数
+      // 链式编程
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // 调用了resolve函数之后可以链式调用then函数处理业务
+          resolve();
+        }, 1000);
+        // 处理业务
+      }).then(() => {
+        console.log("hello vuejs");
+        console.log("hello vuejs");
+        console.log("hello vuejs");
+        console.log("hello vuejs");
+        console.log("hello vuejs");
+        console.log("hello vuejs");
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, 1000);
+        }).then(() => {
+          console.log("hello python");
+          console.log("hello python");
+          console.log("hello python");
+          console.log("hello python");
+          console.log("hello python");
+          console.log("hello python");
+          console.log("hello python");
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve();
+            }, 1000);
+          }).then(() => {
+            console.log("hello fuck");
+            console.log("hello fuck");
+            console.log("hello fuck");
+            console.log("hello fuck");
+            console.log("hello fuck");
+            console.log("hello fuck");
+            console.log("hello fuck");
+          });
+        });
+      });
+
+      // 什么时候会用到promise
+      // 一般情况下是有异步操作时，使用Promise对这个异步操作进行封装
+      // new -> 构造函数（1.保存了一些状态信息  2.执行传入的函数）
+      // 在执行传入的回调函数时，会给回调函数传入两个参数，resolve，reject，而这两个本身又是函数
+      // resolve和reject这两个函数可以进行链式编程，成功和失败可以调用相应的链式处理
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // 成功的时候调用resolve
+          if (false) {
+            resolve("hello world!");
+          } else {
+            // 失败的时候调用reject
+            reject("error!");
+          }
+        }, 4000);
+      })
+        // 成功处理
+        .then((data) => {
+          console.log(data);
+        })
+        // 失败处理
+        .catch((err) => {
+          console.log(err);
+        });
+
+      /**
+       * promise的三种状态
+       *    pending(等待状态)
+       *        比如正在进行网络请求，或者定时器没有到时间
+       *    fulfill(满足状态)
+       *        当我们主动回调了resolve时，就处于该状态，并且会回调.then()
+       *    reject (拒绝状态)
+       *        当我们主动回调了reject时，就处于该状态，并且会回调.catch()
+       */
+    </script>
+  </body>
+</html>
